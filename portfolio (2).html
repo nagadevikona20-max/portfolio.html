@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kona Nagadevi ✦</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@1,300;1,600&display=swap" rel="stylesheet"/>
+<style>
+/* ════════ TOKENS ════════ */
+:root{
+  --rose:#c0657a;--blush:#f5d0dc;--lav:#d4c6e8;
+  --mauve:#8b3a6b;--cream:#fdf6f0;--mist:#f0eaf5;
+  --deep:#3d1a2e;--mid:#6a3a58;--white:#fff;--nav:70px;
+  --ease:cubic-bezier(.25,.46,.45,.94);
+}
+/* ════════ RESET ════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--deep);overflow-x:hidden;cursor:none}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+
+/* ════════ CURSOR ════════ */
+#cur{
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%);
+  will-change:left,top;
+}
+.cur-star{
+  width:26px;height:26px;
+  background:conic-gradient(var(--rose) 0 36deg,transparent 36deg 72deg,var(--blush) 72deg 108deg,transparent 108deg 144deg,var(--lav) 144deg 180deg,transparent 180deg 216deg,var(--mauve) 216deg 252deg,transparent 252deg 288deg,var(--rose) 288deg 324deg,transparent 324deg 360deg);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  animation:starSpin 4s linear infinite;
+  position:relative;
+}
+.cur-star::after{
+  content:'';position:absolute;inset:-8px;
+  background:radial-gradient(circle,rgba(192,101,122,.4),transparent 65%);
+  border-radius:50%;
+  animation:glowBeat 1.5s ease-in-out infinite;
+}
+#cur-ring{
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:99998;
+  width:42px;height:42px;
+  border:1.5px solid rgba(192,101,122,.38);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  will-change:left,top;
+  transition:width .2s,height .2s,border-color .2s;
+}
+body.hov #cur-ring{width:62px;height:62px;border-color:var(--rose)}
+@keyframes starSpin{to{transform:rotate(360deg)}}
+@keyframes glowBeat{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.35)}}
+
+/* ════════ SPARKS ════════ */
+@keyframes sparkOut{
+  0%  {opacity:1;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(0)}
+}
+.spark-dot{position:fixed;pointer-events:none;z-index:99997;border-radius:50%;transform:translate(-50%,-50%);animation:sparkOut .55s ease forwards}
+
+/* ════════ PETALS ════════ */
+.petal{position:fixed;top:-50px;pointer-events:none;z-index:1;animation:petalFall linear infinite;user-select:none}
+@keyframes petalFall{
+  0%  {transform:translateY(0) rotate(0deg);opacity:0}
+  8%  {opacity:.55}
+  92% {opacity:.3}
+  100%{transform:translateY(104vh) rotate(580deg);opacity:0}
+}
+
+/* ════════ GRAIN ════════ */
+body::before{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.022}
+
+/* ════════ NAV ════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  height:var(--nav);display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;
+  background:rgba(253,246,240,.85);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(192,101,122,.1);
+  transition:box-shadow .3s;
+}
+nav.scrolled{box-shadow:0 4px 30px rgba(139,58,107,.09)}
+.logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;color:var(--mauve);letter-spacing:.03em}
+.nav-links{display:flex;gap:2.2rem;align-items:center}
+.nav-links a{
+  font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mid);position:relative;padding-bottom:2px;transition:color .25s;
+}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;height:1px;width:0;background:var(--rose);transition:width .3s var(--ease)}
+.nav-links a:hover,.nav-links a.active{color:var(--rose)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-gh{background:var(--mauve)!important;color:#fff!important;padding:.42rem 1.15rem!important;border-radius:99px!important;transition:background .25s,transform .2s!important}
+.nav-gh::after{display:none!important}
+.nav-gh:hover{background:var(--rose)!important;transform:translateY(-2px)!important;color:#fff!important}
+
+/* ════════ SECTIONS ════════ */
+section{padding:7rem 2rem;position:relative}
+.inner{max-width:1080px;margin:0 auto}
+.sec-label{display:inline-block;font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--rose);margin-bottom:.8rem}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;color:var(--deep);margin-bottom:1.5rem}
+.sec-title em{color:var(--rose);font-style:italic}
+
+/* ════════ REVEAL ════════ */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+.reveal.up{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ════════ HERO ════════ */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding-top:var(--nav);overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:orbDrift 10s ease-in-out infinite}
+.o1{width:520px;height:520px;background:radial-gradient(circle,rgba(245,208,220,.7),transparent);top:-120px;right:-80px}
+.o2{width:420px;height:420px;background:radial-gradient(circle,rgba(212,198,232,.6),transparent);bottom:-80px;left:-80px;animation-delay:3.5s}
+.o3{width:280px;height:280px;background:radial-gradient(circle,rgba(192,101,122,.2),transparent);top:50%;left:45%;animation-delay:1.8s}
+@keyframes orbDrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(28px,-22px) scale(1.06)}66%{transform:translate(-18px,28px) scale(.96)}}
+.hero-inner{text-align:center;position:relative;z-index:2;padding:2rem 1rem}
+.hero-chip{display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--rose);border:1px solid rgba(192,101,122,.4);padding:.38rem 1.1rem;border-radius:99px;margin-bottom:2rem;animation:fadeUp .7s var(--ease) both}
+.hero-banner{width:min(680px,90vw);border-radius:22px;margin:0 auto 2.2rem;box-shadow:0 24px 70px rgba(139,58,107,.18),0 6px 18px rgba(139,58,107,.1);animation:fadeUp .8s .1s var(--ease) both;transition:transform .5s var(--ease),box-shadow .5s;transform-style:preserve-3d}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.1rem,2.5vw,1.45rem);color:var(--mauve);margin-bottom:2rem;animation:fadeUp .8s .2s var(--ease) both}
+.hero-badges{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-bottom:2.2rem;animation:fadeUp .8s .3s var(--ease) both}
+.badge{padding:.42rem 1.1rem;border-radius:99px;font-size:.76rem;font-weight:500;border:1.5px solid;transition:transform .25s,box-shadow .25s}
+.badge:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(139,58,107,.2)}
+.b1{border-color:var(--rose);color:var(--rose);background:rgba(192,101,122,.06)}
+.b2{border-color:#9b7abf;color:#7a5a9f;background:rgba(155,122,191,.06)}
+.b3{border-color:var(--mauve);color:var(--mauve);background:rgba(139,58,107,.06)}
+.hero-btns{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;animation:fadeUp .8s .45s var(--ease) both}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2rem;border-radius:99px;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;position:relative;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s;cursor:none}
+.btn-fill{background:var(--mauve);color:#fff;box-shadow:0 8px 28px rgba(139,58,107,.35)}
+.btn-fill:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(139,58,107,.35);background:var(--rose)}
+.btn-out{border:1.5px solid var(--rose);color:var(--rose)}
+.btn-out::before{content:'';position:absolute;inset:0;background:var(--rose);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.btn-out:hover::before{transform:scaleX(1)}
+.btn-out:hover{color:#fff;transform:translateY(-3px)}
+.btn span{position:relative;z-index:1}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* ════════ MARQUEE ════════ */
+.mq-wrap{overflow:hidden;border-top:1px solid rgba(192,101,122,.12);border-bottom:1px solid rgba(192,101,122,.12);padding:.9rem 0;background:var(--mist)}
+.mq-track{display:flex;gap:2.8rem;animation:marquee 22s linear infinite;white-space:nowrap;width:max-content}
+.mq-track span{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.08rem;color:var(--mauve)}
+.mq-track .dot{color:var(--rose);font-style:normal}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ════════ ABOUT ════════ */
+#about{background:var(--mist)}
+.about-g{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center}
+@media(max-width:760px){.about-g{grid-template-columns:1fr;gap:2.5rem}.nav-links{gap:1rem}}
+.ap{font-size:1rem;line-height:1.85;color:var(--mid);margin-bottom:1rem}
+.ap strong{color:var(--mauve);font-weight:600}
+.ac{background:#fff;border-radius:22px;padding:2.2rem;box-shadow:0 18px 55px rgba(139,58,107,.1);position:relative;overflow:hidden;transition:transform .5s var(--ease)}
+.ac::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blush),var(--lav),var(--rose))}
+.ac-row{display:flex;flex-direction:column;gap:.85rem}
+.ac-item{display:flex;align-items:center;gap:.9rem}
+.ac-icon{font-size:1.25rem;flex-shrink:0}
+.ac-t{font-size:.82rem;font-weight:600;color:var(--deep)}
+.ac-s{font-size:.73rem;color:#9a7a8a}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:1.5rem}
+.stat{background:var(--mist);border-radius:14px;padding:.9rem .8rem;text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--mauve);display:block}
+.stat-l{font-size:.67rem;color:#8a6a7a;letter-spacing:.1em;text-transform:uppercase}
+
+/* ════════ SKILLS ════════ */
+#skills{background:var(--cream)}
+.sk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.4rem;margin-top:2.8rem}
+.sk-card{background:#fff;border-radius:20px;padding:1.9rem;border:1px solid rgba(192,101,122,.1);position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s;cursor:none}
+.sk-card::after{content:'';position:absolute;inset:0;border-radius:20px;background:linear-gradient(135deg,rgba(245,208,220,.28),rgba(212,198,232,.18));opacity:0;transition:opacity .35s;pointer-events:none}
+.sk-card:hover{transform:translateY(-8px);box-shadow:0 22px 55px rgba(139,58,107,.13)}
+.sk-card:hover::after{opacity:1}
+.sk-ico{font-size:1.9rem;margin-bottom:.9rem;display:block}
+.sk-name{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:700;color:var(--deep);margin-bottom:.42rem}
+.sk-desc{font-size:.79rem;color:#8a6a7a;line-height:1.65;margin-bottom:1rem}
+.pills{display:flex;flex-wrap:wrap;gap:.4rem}
+.pill{font-size:.69rem;padding:.22rem .75rem;border-radius:99px;font-weight:500}
+.pp{background:#fde8ef;color:var(--rose)}
+.pl{background:#ede5f5;color:#7a5a9f}
+.pm{background:#f5e8ef;color:var(--mauve)}
+
+/* ════════ PROJECTS ════════ */
+#projects{background:var(--mist)}
+.pj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.8rem;margin-top:2.8rem}
+.pj-card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 8px 35px rgba(139,58,107,.07);transition:transform .4s var(--ease),box-shadow .4s;cursor:none}
+.pj-card:hover{transform:translateY(-12px);box-shadow:0 30px 65px rgba(139,58,107,.17)}
+.pj-thumb{height:170px;display:flex;align-items:center;justify-content:center;font-size:3.2rem}
+.pt1{background:linear-gradient(135deg,#fde2e4,#ffd6e0)}
+.pt2{background:linear-gradient(135deg,#e8d5f5,#d4c6e8)}
+.pt3{background:linear-gradient(135deg,#d4e8f5,#c6d8e8)}
+.pj-body{padding:1.7rem}
+.pj-title{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--deep);margin-bottom:.48rem}
+.pj-desc{font-size:.82rem;color:#7a5a6a;line-height:1.68;margin-bottom:1rem}
+.pj-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rose);font-weight:600;transition:gap .25s,color .25s;cursor:none}
+.pj-link:hover{gap:.75rem;color:var(--mauve)}
+
+/* ════════ TIMELINE ════════ */
+#experience{background:var(--cream)}
+.timeline{margin-top:2.8rem;position:relative;padding-left:1.5rem}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--blush) 10%,var(--lav) 90%,transparent)}
+.tl-item{position:relative;padding-left:1.8rem;padding-bottom:2.8rem;transition:transform .3s}
+.tl-item:hover{transform:translateX(6px)}
+.tl-dot{position:absolute;left:-5.5px;top:5px;width:11px;height:11px;border-radius:50%;background:var(--rose);box-shadow:0 0 0 3px #fff,0 0 0 5px rgba(192,101,122,.22);transition:transform .3s,box-shadow .3s}
+.tl-item:hover .tl-dot{transform:scale(1.5);box-shadow:0 0 0 4px #fff,0 0 0 8px rgba(192,101,122,.3)}
+.tl-date{font-size:.69rem;letter-spacing:.16em;text-transform:uppercase;color:var(--rose);margin-bottom:.28rem}
+.tl-role{font-family:'Playfair Display',serif;font-size:1.18rem;color:var(--deep);margin-bottom:.22rem}
+.tl-org{font-size:.82rem;color:#8a6a7a;font-style:italic;margin-bottom:.6rem}
+.tl-desc{font-size:.85rem;color:var(--mid);line-height:1.82;max-width:580px}
+
+/* ════════ CONTACT ════════ */
+#contact{background:linear-gradient(135deg,var(--deep) 0%,#5a1a4a 100%);text-align:center;overflow:hidden}
+#contact::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 0%,rgba(245,208,220,.08),transparent 70%)}
+#contact .sec-label{color:rgba(245,208,220,.7)}
+#contact .sec-title{color:#fff}
+.c-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;color:rgba(255,255,255,.6);margin-bottom:2.8rem}
+.clinks{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+.clink{display:inline-flex;align-items:center;gap:.55rem;padding:.88rem 2rem;border-radius:99px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;transition:transform .3s,box-shadow .3s,background .3s,color .3s;cursor:none}
+.cl1{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(10px)}
+.cl1:hover{background:#fff;color:var(--deep);transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.2)}
+.cl2{background:var(--rose);color:#fff}
+.cl2:hover{background:#fff;color:var(--rose);transform:translateY(-4px);box-shadow:0 14px 40px rgba(192,101,122,.4)}
+
+/* ════════ FOOTER ════════ */
+footer{background:var(--deep);color:rgba(255,255,255,.38);text-align:center;padding:1.8rem 1rem;font-size:.75rem;letter-spacing:.05em}
+footer em{color:var(--rose);font-style:normal}
+
+/* ════════ SCROLLBAR ════════ */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--blush);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:var(--rose)}
+
+/* ════════ MOBILE ════════ */
+@media(max-width:600px){nav{padding:0 1rem}.nav-links{gap:.9rem}.nav-links a{font-size:.68rem}section{padding:5rem 1.1rem}}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cur"><div class="cur-star"></div></div>
+<div id="cur-ring"></div>
+
+<!-- PETALS -->
+<div id="petals" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="logo">Kona Nagadevi</div>
+  <ul class="nav-links">
+    <li><a href="#about"      class="nav-a">About</a></li>
+    <li><a href="#skills"     class="nav-a">Skills</a></li>
+    <li><a href="#projects"   class="nav-a">Projects</a></li>
+    <li><a href="#experience" class="nav-a">Journey</a></li>
+    <li><a href="#contact"    class="nav-a">Contact</a></li>
+    <li><a href="https://github.com/nagadevikona20-max" target="_blank" rel="noopener" class="nav-gh">GitHub ✦</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb o1" aria-hidden="true"></div>
+  <div class="orb o2" aria-hidden="true"></div>
+  <div class="orb o3" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-chip">✦ Open to opportunities ✦</div>
+    <img id="hero-img" class="hero-banner" src="banner_.png" alt="Kona Nagadevi"
+      onerror="this.style.display='none';document.getElementById('hfb').style.display='block'"/>
+    <div id="hfb" style="display:none;padding:2.5rem 0">
+      <h1 style="font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,5.5rem);color:var(--mauve);line-height:1.05">
+        Kona<br/><em style="color:var(--rose)">Nagadevi</em>
+      </h1>
+    </div>
+    <p class="hero-sub">✦ she who builds, creates, and grows ✦</p>
+    <div class="hero-badges">
+      <span class="badge b1">Full-Stack Developer</span>
+      <span class="badge b2">Data Analyst</span>
+      <span class="badge b3">Video Editor</span>
+      <span class="badge b1">Creative Communicator</span>
+    </div>
+    <div class="hero-btns">
+      <a class="btn btn-fill" href="#projects"><span>View My Work ✦</span></a>
+      <a class="btn btn-out"  href="#contact"><span>Say Hello 🌸</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq-wrap" aria-hidden="true">
+  <div class="mq-track" id="mq"></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="inner">
+    <div class="about-g">
+      <div class="reveal">
+        <span class="sec-label">✦ Who I am</span>
+        <h2 class="sec-title">Crafting <em>beautiful</em><br/>things with code</h2>
+        <p class="ap">Hey! I'm <strong>Nagadevi</strong> — an aspiring full-stack developer and creative soul who believes great software should feel as beautiful as it works.</p>
+        <p class="ap">Beyond code, I'm a passionate <strong>video editor</strong> and strong communicator — storytelling through pixels and screens. Currently mastering Django and exploring the full depth of the web.</p>
+        <p class="ap">Driven by curiosity, fuelled by iced coffee, always building something new ✨</p>
+      </div>
+      <div class="reveal d2">
+        <div class="ac" id="acard">
+          <div class="ac-row">
+            <div class="ac-item"><span class="ac-icon">🎓</span><div><div class="ac-t">Student Developer</div><div class="ac-s">Learning &amp; building every day</div></div></div>
+            <div class="ac-item"><span class="ac-icon">📍</span><div><div class="ac-t">India</div><div class="ac-s">Open to remote opportunities</div></div></div>
+            <div class="ac-item"><span class="ac-icon">🎬</span><div><div class="ac-t">Video Editor</div><div class="ac-s">Creative visual storyteller</div></div></div>
+            <div class="ac-item"><span class="ac-icon">💬</span><div><div class="ac-t">Strong Communicator</div><div class="ac-s">Team player &amp; collaborator</div></div></div>
+          </div>
+          <div class="stats">
+            <div class="stat"><span class="stat-n">4+</span><span class="stat-l">Projects</span></div>
+            <div class="stat"><span class="stat-n">7+</span><span class="stat-l">Skills</span></div>
+            <div class="stat"><span class="stat-n">∞</span><span class="stat-l">Curiosity</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="inner">
+    <div class="reveal" style="text-align:center">
+      <span class="sec-label">✦ What I work with</span>
+      <h2 class="sec-title">My <em>Toolkit</em></h2>
+    </div>
+    <div class="sk-grid">
+      <div class="sk-card reveal d1">
+        <span class="sk-ico">🌐</span>
+        <div class="sk-name">Web Development</div>
+        <div class="sk-desc">Building responsive, beautiful web experiences from the ground up with clean semantic code.</div>
+        <div class="pills"><span class="pill pp">HTML5</span><span class="pill pp">CSS3</span><span class="pill pl">JavaScript</span><span class="pill pm">Django</span></div>
+      </div>
+      <div class="sk-card reveal d2">
+        <span class="sk-ico">🐍</span>
+        <div class="sk-name">Python &amp; Data</div>
+        <div class="sk-desc">Turning raw data into meaningful insights using Python's powerful data science ecosystem.</div>
+        <div class="pills"><span class="pill pp">Python</span><span class="pill pl">NumPy</span><span class="pill pl">Pandas</span><span class="pill pm">Matplotlib</span><span class="pill pp">Seaborn</span></div>
+      </div>
+      <div class="sk-card reveal d3">
+        <span class="sk-ico">🗄️</span>
+        <div class="sk-name">Database &amp; Tools</div>
+        <div class="sk-desc">Managing data with SQL, version control with Git, and clean dev environments.</div>
+        <div class="pills"><span class="pill pl">SQL</span><span class="pill pp">Git</span><span class="pill pm">GitHub</span><span class="pill pl">VS Code</span></div>
+      </div>
+      <div class="sk-card reveal d1">
+        <span class="sk-ico">🎬</span>
+        <div class="sk-name">Video Editing</div>
+        <div class="sk-desc">Crafting compelling visual stories — from raw footage to polished, cinematic final cuts.</div>
+        <div class="pills"><span class="pill pp">Production</span><span class="pill pl">Storytelling</span><span class="pill pm">Content Creation</span></div>
+      </div>
+      <div class="sk-card reveal d2">
+        <span class="sk-ico">💬</span>
+        <div class="sk-name">Communication</div>
+        <div class="sk-desc">Clear, empathetic communicator across technical and non-technical audiences.</div>
+        <div class="pills"><span class="pill pp">Collaboration</span><span class="pill pl">Presentations</span><span class="pill pm">Problem Solving</span></div>
+      </div>
+      <div class="sk-card reveal d3">
+        <span class="sk-ico">🌱</span>
+        <div class="sk-name">Currently Learning</div>
+        <div class="sk-desc">Always growing — leveling up every single day with new tools and frameworks.</div>
+        <div class="pills"><span class="pill pp">Django Advanced</span><span class="pill pl">REST APIs</span><span class="pill pm">React</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="inner">
+    <div class="reveal" style="text-align:center">
+      <span class="sec-label">✦ What I've built</span>
+      <h2 class="sec-title">My <em>Projects</em></h2>
+    </div>
+    <div class="pj-grid">
+      <div class="pj-card reveal d1">
+        <div class="pj-thumb pt1">💸</div>
+        <div class="pj-body">
+          <div class="pj-title">Expense Tracker</div>
+          <div class="pj-desc">A mindful money management app — track spending habits, visualize patterns, stay in control of your finances.</div>
+          <div class="pills" style="margin-bottom:.9rem"><span class="pill pp">Python</span><span class="pill pm">Data Viz</span></div>
+          <a class="pj-link" href="https://github.com/nagadevikona20-max/Expense-Tracker" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
+      <div class="pj-card reveal d2">
+        <div class="pj-thumb pt2">📚</div>
+        <div class="pj-body">
+          <div class="pj-title">Student Grade Management</div>
+          <div class="pj-desc">A clean, efficient system for managing and analyzing student grades — built for clarity and ease of use.</div>
+          <div class="pills" style="margin-bottom:.9rem"><span class="pill pl">Python</span><span class="pill pm">OOP</span></div>
+          <a class="pj-link" href="https://github.com/nagadevikona20-max/student-grade-management-system-" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
+      <div class="pj-card reveal d3">
+        <div class="pj-thumb pt3">🌐</div>
+        <div class="pj-body">
+          <div class="pj-title">Wagtail CMS Project</div>
+          <div class="pj-desc">A full content management system with Wagtail — elegant Django-powered backend managing dynamic content.</div>
+          <div class="pills" style="margin-bottom:.9rem"><span class="pill pp">JavaScript</span><span class="pill pl">Django</span><span class="pill pm">CMS</span></div>
+          <a class="pj-link" href="https://github.com/nagadevikona20-max/Wagtail-Project" target="_blank" rel="noopener">View on GitHub →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section id="experience">
+  <div class="inner">
+    <div class="reveal">
+      <span class="sec-label">✦ My journey</span>
+      <h2 class="sec-title">Where I've <em>Been</em></h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal d1">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Right now ✨</div>
+        <div class="tl-role">Aspiring Full-Stack Developer</div>
+        <div class="tl-org">Self-driven Projects</div>
+        <div class="tl-desc">Building real-world apps with Django, Python &amp; JavaScript. Exploring data analysis with NumPy, Pandas, Matplotlib and Seaborn. Leveling up daily.</div>
+      </div>
+      <div class="tl-item reveal d2">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Milestone</div>
+        <div class="tl-role">Video Editing &amp; Content Creation</div>
+        <div class="tl-org">Creative Work</div>
+        <div class="tl-desc">Developed strong video editing skills — crafting visual stories, managing pacing, color grading, delivering polished final outputs.</div>
+      </div>
+      <div class="tl-item reveal d3">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Foundation</div>
+        <div class="tl-role">Web &amp; Programming Fundamentals</div>
+        <div class="tl-org">Academic &amp; Self-Learning</div>
+        <div class="tl-desc">Mastered HTML, CSS, JavaScript and Python. Built first projects and fell in love with the power of code to create real things.</div>
+      </div>
+      <div class="tl-item reveal d4">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Next chapter 🌟</div>
+        <div class="tl-role">Full-Stack Engineer</div>
+        <div class="tl-org">The dream destination</div>
+        <div class="tl-desc">Building towards a full-stack role where design, data and development come together. Open to internships, collaborations and new adventures.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="inner" style="position:relative;z-index:1">
+    <div class="reveal">
+      <span class="sec-label">✦ Let's connect</span>
+      <h2 class="sec-title">Say <em style="color:#f5a0c0">Hello</em> 🌸</h2>
+      <p class="c-sub">"Let's build something beautiful together."</p>
+      <div class="clinks">
+        <a class="clink cl1" href="https://www.linkedin.com/in/nagadevi-kona-95b7533aa" target="_blank" rel="noopener">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a class="clink cl2" href="mailto:nagadevikona20@gmail.com">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+          Email Me
+        </a>
+        <a class="clink cl1" href="https://github.com/nagadevikona20-max" target="_blank" rel="noopener">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>made with <em>🌸</em> by Kona Nagadevi &nbsp;·&nbsp; <em>nagadevikona20@gmail.com</em></p>
+</footer>
+
+<script>
+(function(){
+/* ══ 1. CURSOR ══ */
+const cur  = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+
+document.addEventListener('mousemove',function(e){
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px';
+  cur.style.top=my+'px';
+  spawnSpark(mx,my);
+});
+
+(function loopRing(){
+  rx+=(mx-rx)*0.12;
+  ry+=(my-ry)*0.12;
+  ring.style.left=rx+'px';
+  ring.style.top=ry+'px';
+  requestAnimationFrame(loopRing);
+})();
+
+document.querySelectorAll('a,button,.sk-card,.pj-card,.badge').forEach(function(el){
+  el.addEventListener('mouseenter',function(){document.body.classList.add('hov')});
+  el.addEventListener('mouseleave',function(){document.body.classList.remove('hov')});
+});
+
+/* SPARKS */
+var sparkN=0;
+var sparkColors=['#f5d0dc','#d4c6e8','#c0657a','#8b3a6b','#fff'];
+function spawnSpark(x,y){
+  sparkN++;
+  if(sparkN%5!==0) return;
+  var s=document.createElement('div');
+  var dx=(Math.random()-0.5)*30;
+  var dy=(Math.random()-0.5)*30;
+  s.className='spark-dot';
+  s.style.cssText='left:'+x+'px;top:'+y+'px;width:'+(3+Math.random()*4)+'px;height:'+(3+Math.random()*4)+'px;background:'+sparkColors[Math.floor(Math.random()*sparkColors.length)]+';--dx:'+dx+'px;--dy:'+dy+'px';
+  document.body.appendChild(s);
+  setTimeout(function(){s.remove()},560);
+}
+
+/* ══ 2. PETALS ══ */
+var petalBox=document.getElementById('petals');
+var petalArr=['🌸','🌷','✦','✧','❀','✿'];
+function spawnPetal(){
+  var p=document.createElement('div');
+  p.className='petal';
+  p.textContent=petalArr[Math.floor(Math.random()*petalArr.length)];
+  p.style.left=(Math.random()*100)+'vw';
+  p.style.fontSize=(.5+Math.random()*1.1)+'rem';
+  var dur=9+Math.random()*13;
+  p.style.animationDuration=dur+'s';
+  p.style.animationDelay=(Math.random()*5)+'s';
+  petalBox.appendChild(p);
+  setTimeout(function(){p.remove()},(dur+6)*1000);
+}
+for(var i=0;i<18;i++) setTimeout(spawnPetal,i*300);
+setInterval(spawnPetal,2000);
+
+/* ══ 3. MARQUEE ══ */
+var items=['Python','Django','JavaScript','HTML & CSS','SQL','NumPy','Pandas','Matplotlib','Seaborn','Video Editing','Communication','GitHub','Full Stack'];
+var all=items.concat(items);
+var mq=document.getElementById('mq');
+all.forEach(function(t,i){
+  var s=document.createElement('span');s.textContent=t;mq.appendChild(s);
+  if(i<all.length-1){var d=document.createElement('span');d.className='dot';d.textContent='✦';mq.appendChild(d);}
+});
+
+/* ══ 4. SMOOTH SCROLL ══ */
+var navEl=document.getElementById('nav');
+function navH(){return navEl.offsetHeight+16;}
+
+function scrollTo(id){
+  var el=document.getElementById(id);
+  if(!el) return;
+  var top=el.getBoundingClientRect().top+window.pageYOffset-navH();
+  window.scrollTo({top:top,behavior:'smooth'});
+}
+
+// intercept ALL hash links
+document.addEventListener('click',function(e){
+  var a=e.target.closest('a');
+  if(!a) return;
+  var href=a.getAttribute('href');
+  if(!href||href[0]!=='#') return;
+  var id=href.slice(1);
+  if(!id||!document.getElementById(id)) return;
+  e.preventDefault();
+  scrollTo(id);
+});
+
+/* ══ 5. NAV active + shadow ══ */
+var secs=Array.from(document.querySelectorAll('section[id]'));
+var navAs=Array.from(document.querySelectorAll('.nav-a'));
+
+function onScroll(){
+  navEl.classList.toggle('scrolled',window.pageYOffset>20);
+  var mid=window.pageYOffset+navH()+80;
+  var active='';
+  secs.forEach(function(s){if(mid>=s.offsetTop)active=s.id;});
+  navAs.forEach(function(a){
+    var href=a.getAttribute('href');
+    a.classList.toggle('active',href==='#'+active);
+  });
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+/* ══ 6. SCROLL REVEAL ══ */
+var revEls=document.querySelectorAll('.reveal');
+var ro=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('up');ro.unobserve(e.target);}
+  });
+},{threshold:0.1});
+revEls.forEach(function(el){ro.observe(el);});
+
+/* ══ 7. 3D TILT — skill cards ══ */
+document.querySelectorAll('.sk-card').forEach(function(c){
+  c.addEventListener('mousemove',function(e){
+    var r=c.getBoundingClientRect();
+    var x=(e.clientX-r.left)/r.width-0.5;
+    var y=(e.clientY-r.top)/r.height-0.5;
+    c.style.transform='perspective(600px) rotateY('+(x*16)+'deg) rotateX('+(-y*16)+'deg) translateY(-8px)';
+  });
+  c.addEventListener('mouseleave',function(){c.style.transform='';});
+});
+
+/* ══ 8. 3D TILT — about card ══ */
+var ac=document.getElementById('acard');
+if(ac){
+  ac.addEventListener('mousemove',function(e){
+    var r=ac.getBoundingClientRect();
+    var x=(e.clientX-r.left)/r.width-0.5;
+    var y=(e.clientY-r.top)/r.height-0.5;
+    ac.style.transform='perspective(800px) rotateY('+(x*10)+'deg) rotateX('+(-y*10)+'deg)';
+  });
+  ac.addEventListener('mouseleave',function(){ac.style.transform='';});
+}
+
+/* ══ 9. HERO BANNER 3D ══ */
+var hi=document.getElementById('hero-img');
+if(hi){
+  hi.addEventListener('mousemove',function(e){
+    var r=hi.getBoundingClientRect();
+    var x=(e.clientX-r.left)/r.width-0.5;
+    var y=(e.clientY-r.top)/r.height-0.5;
+    hi.style.transform='perspective(900px) rotateY('+(x*9)+'deg) rotateX('+(-y*9)+'deg) scale(1.025)';
+  });
+  hi.addEventListener('mouseleave',function(){hi.style.transform='';});
+}
+
+})();
+</script>
+</body>
+</html>
